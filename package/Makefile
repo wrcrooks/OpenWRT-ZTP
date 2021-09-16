@@ -1,0 +1,37 @@
+include $(TOPDIR)/rules.mk
+ 
+PKG_NAME:=ztp
+PKG_VERSION:=1.0.0
+PKG_RELEASE:=1
+ 
+PKG_BUILD_DIR:=$(BUILD_DIR)/ztp-$(PKG_VERSION)
+PKG_SOURCE:=v$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://github.com/wrcrooks/OpenWRT-ZTP/archive/refs/tags/$(PKG_SOURCE)
+# PKG_HASH:=9b7dc52656f5cbec846a7ba3299f73bd
+ 
+include $(INCLUDE_DIR)/package.mk
+ 
+define Package/ztp
+  SECTION:=base
+  CATEGORY:=Utilities
+  TITLE:=Zero Touch Provisioning utility
+  URL:=https://github.com/wrcrooks/OpenWRT-ZTP
+  DEPENDS:= +curl +wget +jq
+endef
+ 
+define Package/ztp/description
+ Zero Touch Provisioning utility
+ Zero Touch Provisioning; a way to provision OpenWRT through only
+ a WAN connection
+endef
+
+define Package/ztp/config
+	source "$(SOURCE)/Config.in"
+endef
+ 
+define Package/ztp/install
+		$(INSTALL_DIR) $(1)/etc/init.d
+		$(INSTALL_BIN) ./files/ztp.init $(1)/etc/init.d/ztp
+endef
+ 
+$(eval $(call BuildPackage,ztp))
