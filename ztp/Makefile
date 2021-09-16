@@ -26,7 +26,7 @@ define Package/ztp/description
 endef
 
 define Package/ztp/config
-	source "$(SOURCE)/Config.in"
+    source "$(SOURCE)/Config.in"
 endef
  
 define Package/ztp/install
