@@ -4,9 +4,11 @@ PKG_NAME:=ztp
 PKG_VERSION:=1.0.0
 PKG_RELEASE:=1
  
-PKG_BUILD_DIR:=$(BUILD_DIR)/ztp-$(PKG_VERSION)
-PKG_SOURCE:=v$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://github.com/wrcrooks/OpenWRT-ZTP/archive/refs/tags/$(PKG_SOURCE)
+# PKG_BUILD_DIR:=$(BUILD_DIR)/ztp-$(PKG_VERSION)
+# PKG_SOURCE:=v$(PKG_VERSION).tar.gz
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_URL:=https://github.com/wrcrooks/OpenWRT-ZTP.git
+PKG_SOURCE_VERSION:=v$(PKG_VERSION)
 # PKG_HASH:=9b7dc52656f5cbec846a7ba3299f73bd
  
 include $(INCLUDE_DIR)/package.mk
@@ -27,12 +29,12 @@ define Package/ztp/description
 endef
 
 define Package/ztp/config
-    source "$(SOURCE)/Config.in"
+  source "$(SOURCE)/Config.in"
 endef
  
 define Package/ztp/install
 		$(INSTALL_DIR) $(1)/etc/init.d
-		$(INSTALL_BIN) ./files/ztp.init $(1)/etc/init.d/ztp
+		$(INSTALL_BIN) ./files/$(PKG_NAME).init $(1)/etc/init.d/$(PKG_NAME)
 endef
  
 $(eval $(call BuildPackage,ztp))
