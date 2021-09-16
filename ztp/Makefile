@@ -12,11 +12,12 @@ PKG_SOURCE_URL:=https://github.com/wrcrooks/OpenWRT-ZTP/archive/refs/tags/$(PKG_
 include $(INCLUDE_DIR)/package.mk
  
 define Package/ztp
-  SECTION:=base
+  SECTION:=utils
   CATEGORY:=Utilities
   TITLE:=Zero Touch Provisioning utility
   URL:=https://github.com/wrcrooks/OpenWRT-ZTP
   DEPENDS:= +curl +wget +jq
+  MENU:=1
 endef
  
 define Package/ztp/description
