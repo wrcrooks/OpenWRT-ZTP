@@ -11,6 +11,10 @@ PKG_SOURCE_URL:=https://github.com/wrcrooks/OpenWRT-ZTP.git
 PKG_SOURCE_VERSION:=v$(PKG_VERSION)
 PKG_MIRROR_HASH:=skip
 
+PKG_FIXUP:=autoreconf
+PKG_INSTALL:=1
+PKG_BUILD_PARALLEL:=1
+
 DEFAULT_ZTP_SECRET:=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 33)
 
 include $(INCLUDE_DIR)/package.mk
@@ -19,7 +23,7 @@ define Package/ztp
 	SECTION:=utils
 	CATEGORY:=Utilities
 	TITLE:=Zero Touch Provisioning utility
-	URL:=https://github.com/wrcrooks/OpenWRT-ZTP
+	URL:=https://github.com/wrcrooks/OpenWRT-ZTP.git
 	DEPENDS:= +curl +wget +jq +coreutils-tr
 	MENU:=1
 endef
