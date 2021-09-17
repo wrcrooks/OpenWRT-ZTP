@@ -45,6 +45,11 @@ CONFIG_ZTP_SECRET:=$(call qstrip,$(CONFIG_ZTP_SECRET))
 # 	$(call Build/Configure/Default)
 # endef
 
+define Build/Compile
+	$(MAKE) -C $(PKG_BUILD_DIR)
+endef
+# $(TARGET_CC) $(TARGET_CFLAGS) $(TARGET_LDFLAGS) $(PKG_BUILD_DIR)/generate-ipv6-address.c -o $(PKG_BUILD_DIR)/generate-ipv6-address
+
 define Package/ztp/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/ztp $(1)/usr/bin/
