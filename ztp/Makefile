@@ -16,12 +16,12 @@ DEFAULT_ZTP_SECRET:=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 33)
 include $(INCLUDE_DIR)/package.mk
 
 define Package/ztp
-  SECTION:=utils
-  CATEGORY:=Utilities
-  TITLE:=Zero Touch Provisioning utility
-  URL:=https://github.com/wrcrooks/OpenWRT-ZTP
-  DEPENDS:= +curl +wget +jq +coreutils-tr
-  MENU:=1
+	SECTION:=utils
+	CATEGORY:=Utilities
+	TITLE:=Zero Touch Provisioning utility
+	URL:=https://github.com/wrcrooks/OpenWRT-ZTP
+	DEPENDS:= +curl +wget +jq +coreutils-tr
+	MENU:=1
 endef
 
 define Package/ztp/description
@@ -31,7 +31,7 @@ define Package/ztp/description
 endef
 
 define Package/ztp/config
-  source "$(SOURCE)/Config.in"
+	source "$(SOURCE)/Config.in"
 endef
 
 CONFIG_ZTP_URL:=$(call qstrip,$(CONFIG_ZTP_URL))
@@ -46,12 +46,12 @@ define Build/Configure
 endef
 
 define Package/ztp/install
-  $(INSTALL_DIR) $(1)/etc
+	$(INSTALL_DIR) $(1)/etc
 	$(INSTALL_CONF) $(PKG_INSTALL_DIR)/etc/ztp.conf $(1)/etc/
-  echo -e "$(CONFIG_ZTP_URL)" >> $(1)/etc/ztp.conf
-  echo -e "\n$(CONFIG_ZTP_SECRET)" >> $(1)/etc/ztp.conf
-  $(INSTALL_DIR) $(1)/etc/init.d
-  $(INSTALL_BIN) ./files/$(PKG_NAME).init $(1)/etc/init.d/$(PKG_NAME)
+	echo -e "$(CONFIG_ZTP_URL)" >> $(1)/etc/ztp.conf
+	echo -e "\n$(CONFIG_ZTP_SECRET)" >> $(1)/etc/ztp.conf
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_BIN) ./files/$(PKG_NAME).init $(1)/etc/init.d/$(PKG_NAME)
 endef
 
 $(eval $(call BuildPackage,ztp))
