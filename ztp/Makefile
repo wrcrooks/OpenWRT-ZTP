@@ -11,6 +11,8 @@ PKG_SOURCE_URL:=https://github.com/wrcrooks/OpenWRT-ZTP.git
 PKG_SOURCE_VERSION:=v$(PKG_VERSION)
 # PKG_HASH:=9b7dc52656f5cbec846a7ba3299f73bd
  
+DEFAULT_ZTP_SECRET:=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 33 ; echo '')
+
 include $(INCLUDE_DIR)/package.mk
  
 define Package/ztp
@@ -31,10 +33,21 @@ endef
 define Package/ztp/config
   source "$(SOURCE)/Config.in"
 endef
- 
+
+CONFIG_ZTP_URL:=$(call qstrip,$(CONFIG_ZTP_URL))
+CONFIG_ZTP_SECRET:=$(call qstrip,$(CONFIG_ZTP_SECRET))
+
+define Package/ztp/conffiles
+/etc/ztp.conf
+endef
+
 define Package/ztp/install
-		$(INSTALL_DIR) $(1)/etc/init.d
-		$(INSTALL_BIN) ./files/$(PKG_NAME).init $(1)/etc/init.d/$(PKG_NAME)
+  $(INSTALL_DIR) $(1)/etc
+	$(INSTALL_CONF) $(PKG_INSTALL_DIR)/etc/ztp.conf $(1)/etc/
+  echo -e "$(CONFIG_ZTP_URL)" >> $(1)/etc/ztp.conf
+  echo -e "\n$(CONFIG_ZTP_SECRET)" >> $(1)/etc/ztp.conf
+  $(INSTALL_DIR) $(1)/etc/init.d
+  $(INSTALL_BIN) ./files/$(PKG_NAME).init $(1)/etc/init.d/$(PKG_NAME)
 endef
  
 $(eval $(call BuildPackage,ztp))

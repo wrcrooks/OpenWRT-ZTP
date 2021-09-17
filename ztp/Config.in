@@ -3,8 +3,9 @@ menu "Configuration"
     depends on PACKAGE_ztp
     config ZTP_URL
         string "ZTP Server URL"
-        default 0.0.0.0
+        default "0.0.0.0"
     config ZTP_SECRET
         string "ZTP Server Secret"
-        default jBqenDkRHd4ztdTeVeG2hYkM
+        default "jBqenDkRHd4ztdTeVeG2hYkM"
 endmenu
+
