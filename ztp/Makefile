@@ -20,7 +20,7 @@ define Package/ztp
   CATEGORY:=Utilities
   TITLE:=Zero Touch Provisioning utility
   URL:=https://github.com/wrcrooks/OpenWRT-ZTP
-  DEPENDS:= +curl +wget +jq
+  DEPENDS:= +curl +wget +jq +coreutils-tr
   MENU:=1
 endef
  
