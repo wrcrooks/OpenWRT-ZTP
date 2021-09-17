@@ -11,7 +11,7 @@ PKG_SOURCE_URL:=https://github.com/wrcrooks/OpenWRT-ZTP.git
 PKG_SOURCE_VERSION:=v$(PKG_VERSION)
 # PKG_HASH:=9b7dc52656f5cbec846a7ba3299f73bd
  
-DEFAULT_ZTP_SECRET:=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 33 ; echo '')
+DEFAULT_ZTP_SECRET:=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 33)
 
 include $(INCLUDE_DIR)/package.mk
  
