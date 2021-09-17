@@ -9,7 +9,7 @@ PKG_RELEASE:=1
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/wrcrooks/OpenWRT-ZTP.git
 PKG_SOURCE_VERSION:=v$(PKG_VERSION)
-# PKG_HASH:=9b7dc52656f5cbec846a7ba3299f73bd
+PKG_MIRROR_HASH:=skip
 
 DEFAULT_ZTP_SECRET:=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 33)
 
