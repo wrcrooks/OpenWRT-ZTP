@@ -1,20 +1,20 @@
 include $(TOPDIR)/rules.mk
- 
+
 PKG_NAME:=ztp
 PKG_VERSION:=1.0.0
 PKG_RELEASE:=1
- 
+
 # PKG_BUILD_DIR:=$(BUILD_DIR)/ztp-$(PKG_VERSION)
 # PKG_SOURCE:=v$(PKG_VERSION).tar.gz
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/wrcrooks/OpenWRT-ZTP.git
 PKG_SOURCE_VERSION:=v$(PKG_VERSION)
 # PKG_HASH:=9b7dc52656f5cbec846a7ba3299f73bd
- 
+
 DEFAULT_ZTP_SECRET:=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 33)
 
 include $(INCLUDE_DIR)/package.mk
- 
+
 define Package/ztp
   SECTION:=utils
   CATEGORY:=Utilities
@@ -23,7 +23,7 @@ define Package/ztp
   DEPENDS:= +curl +wget +jq +coreutils-tr
   MENU:=1
 endef
- 
+
 define Package/ztp/description
  Zero Touch Provisioning utility
  Zero Touch Provisioning; a way to provision OpenWRT through only
@@ -41,6 +41,10 @@ define Package/ztp/conffiles
 /etc/ztp.conf
 endef
 
+define Build/Configure
+	$(call Build/Configure/Default)
+endef
+
 define Package/ztp/install
   $(INSTALL_DIR) $(1)/etc
 	$(INSTALL_CONF) $(PKG_INSTALL_DIR)/etc/ztp.conf $(1)/etc/
@@ -49,5 +53,5 @@ define Package/ztp/install
   $(INSTALL_DIR) $(1)/etc/init.d
   $(INSTALL_BIN) ./files/$(PKG_NAME).init $(1)/etc/init.d/$(PKG_NAME)
 endef
- 
+
 $(eval $(call BuildPackage,ztp))
