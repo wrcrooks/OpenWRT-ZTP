@@ -1,13 +1,13 @@
 .\" $Id$
 .\"
-.\" manpage written by jose@monkey.org
+.\" manpage written by will@willcrooks.net
 .\"
-.Dd 21 March, 2008
-.Dt DNSTOP 8
+.Dd September 17, 2021
+.Dt ZTP 8
 .Os
 .Sh NAME
-.Nm dnstop
-.Nd displays various tables of DNS traffic on your network
+.Nm ztp
+.Nd Zero Touch Provisioning utility
 .Sh SYNOPSIS
 .Nm
 .Op Fl 46apsQR
@@ -19,7 +19,7 @@
 .Op Ar savefile
 .Sh DESCRIPTION
 .Nm
-is a small tool to listen on
+is a way to provision OpenWRT through only a WAN connection
 .Ar device
 or to parse the file
 .Ar savefile
@@ -30,28 +30,13 @@ must have read access to
 .Pp
 The options are as follows:
 .Bl -tag -width Ds
-.It Fl 4
-count only messages with IPv4 addresses
-.It Fl 6
-count only messages with IPv6 addresses
-.It Fl Q
-count only DNS query messages
-.It Fl R
-count only DNS reply messages
-.It Fl a
-anonymize addresses
-.It Fl b Ar expression
-BPF filter expression
+.It Fl u Ar url
+url
+.It Fl s Ar secret
+secret
+.It Fl c Ar clientid
+Client ID
 .br
-(default: udp port 53)
-.It Fl i Ar address
-ignore select addresses
-.It Fl p
-Do not put the interface into promiscuous mode.
-.It Fl r
-Redraw interval (seconds).
-.It Fl l Ar level
-keep counts on names up to
 .Pa level
 domain name levels.
 .Pp
