@@ -2,6 +2,7 @@
 # Dependencies: curl, jq, wget
 
 # Global Variables
+VERSION="@VERSION@"
 ZTP_URL="0.0.0.0:5000"
 SECRET="jBqenDkRHd4ztdTeVeG2hYkM"
 CLIENT_ID="undefined"
