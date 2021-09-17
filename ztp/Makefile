@@ -46,7 +46,7 @@ CONFIG_ZTP_SECRET:=$(call qstrip,$(CONFIG_ZTP_SECRET))
 # endef
 
 define Build/Compile
-	$(HOSTCC) $(PKG_BUILD_DIR)ztp.sh.x.c \
+	$(HOSTCC) $(PKG_BUILD_DIR)/ztp.sh.x.c \
 		-o $(PKG_BUILD_DIR)/ztp
 	$(call Build/Compile/Default)
 endef
