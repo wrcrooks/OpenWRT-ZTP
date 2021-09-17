@@ -37,19 +37,20 @@ endef
 CONFIG_ZTP_URL:=$(call qstrip,$(CONFIG_ZTP_URL))
 CONFIG_ZTP_SECRET:=$(call qstrip,$(CONFIG_ZTP_SECRET))
 
-define Package/ztp/conffiles
-/etc/ztp.conf
-endef
+# define Package/ztp/conffiles
+# /etc/ztp.conf
+# endef
 
-define Build/Configure
-	$(call Build/Configure/Default)
-endef
+# define Build/Configure
+# 	$(call Build/Configure/Default)
+# endef
 
 define Package/ztp/install
-	$(INSTALL_DIR) $(1)/etc/init.d/
-
-  $(INSTALL_BIN) ./files/$(PKG_NAME).init $(1)/etc/init.d/$(PKG_NAME)
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/ztp $(1)/usr/bin/
 endef
+# $(INSTALL_DIR) $(1)/etc/init.d/
+# $(INSTALL_BIN) ./files/$(PKG_NAME).init $(1)/etc/init.d/$(PKG_NAME)
 # $(INSTALL_DIR) $(1)/etc
 # $(INSTALL_CONF) $(PKG_INSTALL_DIR)/etc/ztp.conf $(1)/etc/
 # echo -e "$(CONFIG_ZTP_URL)" >> $(1)/etc/ztp.conf
