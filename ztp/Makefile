@@ -46,12 +46,15 @@ define Build/Configure
 endef
 
 define Package/ztp/install
-	$(INSTALL_DIR) $(1)/etc
-	$(INSTALL_CONF) $(PKG_INSTALL_DIR)/etc/ztp.conf $(1)/etc/
-	echo -e "$(CONFIG_ZTP_URL)" >> $(1)/etc/ztp.conf
-	echo -e "\n$(CONFIG_ZTP_SECRET)" >> $(1)/etc/ztp.conf
-	$(INSTALL_DIR) $(1)/etc/init.d
-	$(INSTALL_BIN) ./files/$(PKG_NAME).init $(1)/etc/init.d/$(PKG_NAME)
+	$(INSTALL_DIR) $(1)/etc/init.d/
+
+  $(INSTALL_BIN) ./files/$(PKG_NAME).init $(1)/etc/init.d/$(PKG_NAME)
 endef
+# $(INSTALL_DIR) $(1)/etc
+# $(INSTALL_CONF) $(PKG_INSTALL_DIR)/etc/ztp.conf $(1)/etc/
+# echo -e "$(CONFIG_ZTP_URL)" >> $(1)/etc/ztp.conf
+# echo -e "\n$(CONFIG_ZTP_SECRET)" >> $(1)/etc/ztp.conf
+# $(INSTALL_DIR) $(1)/etc/init.d
+# $(INSTALL_BIN) ./files/$(PKG_NAME).init $(1)/etc/init.d/$(PKG_NAME)
 
 $(eval $(call BuildPackage,ztp))
