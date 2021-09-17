@@ -4,22 +4,36 @@
 # Global Variables
 ZTP_URL="0.0.0.0:5000"
 SECRET="jBqenDkRHd4ztdTeVeG2hYkM"
-CLIENT_ID=$(cat /sys/devices/platform/10100000.ethernet/net/eth0/address)
+CLIENT_ID="undefined"
 
 # Application Variables
 LOOP=true
 
-while getopts ":u:s:" OPT; do
+# Get Parameters
+while getopts ":u:s:c:" OPT; do
     case $OPT in
         u) ZTP_URL="$OPTARG"
         ;;
         s) SECRET="$OPTARG"
         ;;
+        c) CLIENT_ID="$OPTARG"
+        ;;
         \?) echo "Invalid option -$OPTARG" >&2
         ;;
     esac
 done
-
+# Try to Set CLIENT_ID
+# USER --> [Exists] --> CLIENT_ID=$USER
+#      --> [DNE]    --> CLIENT_ID=$SYST
+# SYST --> [Exists] --> CLIENT_ID=$SYST
+#      --> [DNE]    --> CLIENT_ID=$DEFA
+CLIENT_ID_SYS=$(cat /sys/devices/platform/10100000.ethernet/net/eth0/address 2>/dev/null)
+if [ "$CLIENT_ID" == "undefined" ]; then
+    if [ "$CLIENT_ID_SYS" != "" ]; then
+        CLIENT_ID="$CLIENT_ID_SYS"
+    fi
+fi
+# Main Loop
 while $LOOP; do
     RESPONSE=`curl -X POST -H "Content-Type: application/json" -d "{\"CLIENT_ID\": \"$CLIENT_ID\", \"SECRET\": \"$SECRET\"}" http://$ZTP_URL/query`
     if [ "$RESPONSE" == "INVALID_SECRET" ]; then
@@ -28,7 +42,7 @@ while $LOOP; do
     fi
     if [ "$RESPONSE" == "CLIENT_NOT_IN_TABLE" ]; then
         # End Script and Leave ZTP Check on Startup in place
-        LOOP=false
+        sleep 30
     fi
     if [ "$RESPONSE" == "ZTP_DISABLE" ]; then
         # End Script and Disable ZTP Check on Startup    
