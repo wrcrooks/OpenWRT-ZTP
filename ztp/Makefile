@@ -30,9 +30,9 @@ define Package/ztp/description
  a WAN connection
 endef
 
-define Package/ztp/config
-	source "$(SOURCE)/Config.in"
-endef
+# define Package/ztp/config
+# 	source "$(SOURCE)/Config.in"
+# endef
 
 CONFIG_ZTP_URL:=$(call qstrip,$(CONFIG_ZTP_URL))
 CONFIG_ZTP_SECRET:=$(call qstrip,$(CONFIG_ZTP_SECRET))
@@ -46,7 +46,10 @@ CONFIG_ZTP_SECRET:=$(call qstrip,$(CONFIG_ZTP_SECRET))
 # endef
 
 define Build/Compile
-	$(MAKE) -C $(PKG_BUILD_DIR)
+	$(RM) -rf $(PKG_BUILD_DIR)/strpool
+	$(TARGET_CC) $(TARGET_CFLAGS) $(TARGET_LDFLAGS) \
+		-o $(PKG_BUILD_DIR)/ztp \
+		$(PKG_BUILD_DIR)/ztp.c
 endef
 # $(HOSTCC) $(PKG_BUILD_DIR)/ztp.c \
 # 	-o $(PKG_BUILD_DIR)/ztp

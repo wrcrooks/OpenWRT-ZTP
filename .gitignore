@@ -1,3 +1,8 @@
 ztp.sh.x
 ztp.sh.x.c
 Makefile.in_og
+compile
+depcomp
+install-sh
+missing
+autom4te.cache/requests
